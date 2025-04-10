@@ -32,7 +32,7 @@ jobs:
 
       - name: Build docker image and push to docker hub for card-service
         run: |
-          cd ../card-service
+          cd card-service
           docker build -t yanwang20210813/card-service .
           docker push yanwang20210813/card-service:latest
 
