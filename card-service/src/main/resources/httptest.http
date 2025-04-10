@@ -1,0 +1,86 @@
+### Create account Post request to lcoalhost server
+POST http://localhost:8080/account/create
+Content-Type: application/json
+
+{
+  "email": "mj123456@nba.com",
+  "name": "Michile Jordan",
+  "username": "MichileJordan123",
+  "password": "Mj123456",
+  "accountStatus": "CREATED"
+}
+
+### Change account status PATCH request to lcoalhost server
+PATCH http://localhost:8080/account/changeAccountStatus/5
+Content-Type: application/json
+
+{
+    "id": 5,
+    "email": "123456@163.com",
+    "name": "Hommie",
+    "username": "hjasfj",
+    "password": "Wasd123456",
+    "accountStatus": "ACTIVATED"
+}
+
+### Query account by lastUpdated field DESC with pagination GET request to lcoalhost server
+GET http://localhost:8080/account/queryAccountPage
+Content-Type: application/json
+
+{
+  "pageNum": 1,
+  "pageSize": 2
+}
+
+### Change account status PATCH request to lcoalhost server
+PATCH http://localhost:8080/account/changeAccountStatus/9
+Content-Type: application/json
+
+{
+  "id": 9,
+  "email": "123456@163.com",
+  "name": "Hommie",
+  "username": "hjasfj",
+  "password": "Wasd123456",
+  "accountStatus": "ACTIVATED"
+}
+
+### Create card POST request to lcoalhost server
+POST http://localhost:8080/card/create
+Content-Type: application/json
+
+{
+  "id": 2,
+  "cardNum": "1234567890111213",
+  "cardStatus": "ASSIGNED"
+}
+
+### Update card PATCH request to lcoalhost server
+PATCH http://localhost:8080/card/assign/5
+Content-Type: application/json
+
+{
+  "id": 5,
+  "cardNum": "1234567890111213",
+  "accountId": 1,
+  "cardStatus": "ASSIGNED"
+}
+
+### Change card status PATCH request to lcoalhost server
+PATCH http://localhost:8080/card/changeCardStatus/4
+Content-Type: application/json
+
+{
+  "id": 4,
+  "cardNum": "1234567890111213",
+  "cardStatus": "ACTIVATED"
+}
+
+### Query card by lastUpdated field DESC with pagination GET request to lcoalhost server
+GET http://localhost:8080/card/queryCardPage
+Content-Type: application/json
+
+{
+  "pageNum": 1,
+  "pageSize": 2
+}

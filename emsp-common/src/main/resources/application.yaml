@@ -1,0 +1,12 @@
+logging:
+  level:
+    com.volvo.emspassignment.mapper: debug
+
+mybatis-plus:
+  configuration:
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+
+custom:
+  id-config:
+    country-codes: CN,US,UK,JP,KR,DE,RU,CA
+    vendor-codes: AB,CD,EF,GH,IJ,KL,MN

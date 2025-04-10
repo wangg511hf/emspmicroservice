@@ -1,0 +1,25 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: emsp-card-service
+  datasource:
+    url: jdbc:mysql://mysql-container:3306/emsp?useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf8&serverTimezone=GMT%2b8
+    username: emsp_user
+    password: emsp_password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+  level:
+    com.volvo.emspmicroservice.cardservice.mapper: debug
+
+mybatis-plus:
+  type-enums-package: com.volvo.emspmicroservice.cardservice.enumType
+  configuration:
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+
+custom:
+  id-config:
+    country-codes: CN,US,UK,JP,KR,DE,RU,CA
+    vendor-codes: AB,CD,EF,GH,IJ,KL,MN
