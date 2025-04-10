@@ -38,7 +38,7 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: [aws-ec2-emsp]
+    runs-on: [aws-ec2]
     steps:
       - name: Pull images from docker hub
         run: |
