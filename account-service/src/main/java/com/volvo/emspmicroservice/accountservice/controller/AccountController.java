@@ -1,7 +1,7 @@
 package com.volvo.emspmicroservice.accountservice.controller;
 
 import com.volvo.emspmicroservice.accountservice.domain.Account;
-import com.volvo.emspmicroservice.accountservice.dto.AccountDTO;
+import com.volvo.emspmicroservice.common.dto.AccountDTO;
 import com.volvo.emspmicroservice.accountservice.enumType.AccountStatus;
 import com.volvo.emspmicroservice.common.domain.Result;
 import com.volvo.emspmicroservice.accountservice.service.AccountService;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @SpringBootApplication
 @MapperScan("com.volvo.emspmicroservice.cardservice.mapper")
-@ComponentScan("com.volvo.emspmicroservice.common")
+@ComponentScan("com.volvo.emspmicroservice")
 public class CardServiceApplication {
 
     public static void main(String[] args) {

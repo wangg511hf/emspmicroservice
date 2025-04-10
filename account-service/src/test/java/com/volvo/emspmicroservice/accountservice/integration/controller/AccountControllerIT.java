@@ -1,6 +1,6 @@
 package com.volvo.emspmicroservice.accountservice.integration.controller;
 
-import com.volvo.emspmicroservice.accountservice.dto.AccountDTO;
+import com.volvo.emspmicroservice.common.dto.AccountDTO;
 import com.volvo.emspmicroservice.accountservice.controller.AccountController;
 import com.volvo.emspmicroservice.common.domain.Result;
 import org.junit.jupiter.api.Test;

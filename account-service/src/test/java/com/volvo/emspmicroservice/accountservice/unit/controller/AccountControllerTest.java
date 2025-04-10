@@ -1,6 +1,6 @@
 package com.volvo.emspmicroservice.accountservice.unit.controller;
 
-import com.volvo.emspmicroservice.accountservice.dto.AccountDTO;
+import com.volvo.emspmicroservice.common.dto.AccountDTO;
 import com.volvo.emspmicroservice.accountservice.controller.AccountController;
 import com.volvo.emspmicroservice.accountservice.domain.Account;
 import com.volvo.emspmicroservice.common.domain.Result;
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;

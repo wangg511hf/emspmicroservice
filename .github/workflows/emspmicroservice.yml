@@ -1,4 +1,4 @@
-name: eMSPAssignment CI & CD
+name: emspmicroservice CI & CD
 on:
   push:
     branches: [ "master" ]
@@ -22,21 +22,33 @@ jobs:
       - name: Login to docker hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build docker image
-        run: docker build -t yanwang20210813/emspassignment .
+      - name: Build docker image and push to docker hub for account-service
+        run: |
+          cd account-service
+          docker build -t yanwang20210813/account-service .
+          docker push yanwang20210813/account-service:latest
 
-      - name: Publish to docker hub
-        run: docker push yanwang20210813/emspassignment:latest
+      - name: Build docker image and push to docker hub for card-service
+        run: |
+          cd ../card-service
+          docker build -t yanwang20210813/card-service .
+          docker push yanwang20210813/card-service:latest
 
   deploy:
     needs: build
-    runs-on: [aws-ec2]
+    runs-on: [aws-ec2-emsp]
     steps:
-      - name: Pull image from docker hub
-        run: docker pull yanwang20210813/emspassignment:latest
+      - name: Pull images from docker hub
+        run: |
+          docker pull yanwang20210813/account-service:latest
+          docker pull yanwang20210813/card-service:latest
 
-      - name: Delete old container
-        run: docker rm -f emspassignment-container
+      - name: Delete old containers
+        run: |
+          docker rm -f account-service-container
+          docker rm -f card-service-container
 
-      - name: Run docker container
-        run: docker run -d -p 8080:8080 --network app-network --name emspassignment-container yanwang20210813/emspassignment
+      - name: Run docker containers
+        run: |
+          docker run -d -p 8081:8081 --network app-network --name account-service-container yanwang20210813/account-service
+          docker run -d -p 8082:8082 --network app-network --name card-service-container yanwang20210813/card-service

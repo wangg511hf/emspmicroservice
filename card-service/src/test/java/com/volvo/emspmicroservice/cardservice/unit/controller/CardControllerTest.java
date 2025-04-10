@@ -1,6 +1,8 @@
 package com.volvo.emspmicroservice.cardservice.unit.controller;
 
 import com.volvo.emspmicroservice.cardservice.dto.CardDTO;
+import com.volvo.emspmicroservice.common.client.AccountClient;
+import com.volvo.emspmicroservice.common.dto.AccountDTO;
 import com.volvo.emspmicroservice.common.dto.PageDTO;
 import com.volvo.emspmicroservice.common.util.CommonUtil;
 import com.volvo.emspmicroservice.cardservice.controller.CardController;
@@ -30,6 +32,9 @@ public class CardControllerTest {
 
     @Mock
     private CommonUtil commonUtil;
+
+    @Mock
+    private AccountClient accountClient;
 
     @Test
     public void createCard_SuccessWhenInputValid() {
@@ -73,13 +78,17 @@ public class CardControllerTest {
         CardDTO cardDTO = new CardDTO();
         cardDTO.setId(id);
         cardDTO.setCardNum("1234567891011121");
-        cardDTO.setAccountId(1);
         cardDTO.setContractId(commonUtil.generateRandomEMAID());
         cardDTO.setCardStatus("CREATED");
 
-        when(cardService.getById(id)).thenReturn(new Card(cardDTO));
+        AccountDTO accountDTO = new AccountDTO();
+        accountDTO.setId(id);
+        accountDTO.setAccountStatus("CREATED");
 
-        Result testRes = cardController.assign(id, cardDTO);
+        when(cardService.getById(id)).thenReturn(new Card(cardDTO));
+        when(accountClient.getAccountById(id)).thenReturn(accountDTO);
+
+        Result testRes = cardController.assign(id);
 
         assertEquals(Result.of(200, "Card assigned successfully!"), testRes);
         verify(cardService).updateById(any(Card.class));
@@ -99,7 +108,7 @@ public class CardControllerTest {
 
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
-                () -> cardController.assign(id, cardDTO)
+                () -> cardController.assign(id)
         );
 
         assertEquals("Card not found with id: " + id, exception.getMessage());

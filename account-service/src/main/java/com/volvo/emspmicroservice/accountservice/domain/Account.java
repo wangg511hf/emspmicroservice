@@ -1,7 +1,7 @@
 package com.volvo.emspmicroservice.accountservice.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.volvo.emspmicroservice.accountservice.dto.AccountDTO;
+import com.volvo.emspmicroservice.common.dto.AccountDTO;
 import com.volvo.emspmicroservice.accountservice.enumType.AccountStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;

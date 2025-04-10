@@ -1,6 +1,7 @@
 package com.volvo.emspmicroservice.accountservice.integration.service;
 
-import com.volvo.emspmicroservice.accountservice.dto.AccountDTO;
+import com.volvo.emspmicroservice.accountservice.AccountServiceApplication;
+import com.volvo.emspmicroservice.common.dto.AccountDTO;
 import com.volvo.emspmicroservice.common.dto.PageDTO;
 import com.volvo.emspmicroservice.common.query.PageQuery;
 import com.volvo.emspmicroservice.accountservice.service.AccountService;
@@ -13,7 +14,7 @@ import static org.springframework.test.util.AssertionErrors.assertEquals;
 class AccountServiceIT {
 
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
 
     /**
      * Sort Account data by last_updated field in desc order, and pagination API test case

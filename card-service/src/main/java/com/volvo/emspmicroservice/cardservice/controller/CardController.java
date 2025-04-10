@@ -1,6 +1,8 @@
 package com.volvo.emspmicroservice.cardservice.controller;
 
 import com.volvo.emspmicroservice.cardservice.dto.CardDTO;
+import com.volvo.emspmicroservice.common.client.AccountClient;
+import com.volvo.emspmicroservice.common.dto.AccountDTO;
 import com.volvo.emspmicroservice.common.dto.PageDTO;
 import com.volvo.emspmicroservice.common.util.CommonUtil;
 import com.volvo.emspmicroservice.cardservice.domain.Card;
@@ -22,6 +24,8 @@ public class CardController {
     private final CardService cardService;
 
     private final CommonUtil commonUtil;
+
+    private final AccountClient accountClient;
 
     /**
      * Create Account API
@@ -47,13 +51,15 @@ public class CardController {
      * Assign card to Account API
      */
     @PatchMapping("/assign/{id}")
-    public Result assign(@PathVariable int id, @RequestBody @Valid CardDTO cardDTO) {
+    public Result assign(@PathVariable int id) {
         Card card = cardService.getById(id);
         if(card == null) {
             throw new RuntimeException("Card not found with id: " + id);
         }
-        card.setAccountId(cardDTO.getAccountId());
-        card.setCardStatus(CardStatus.valueOf(cardDTO.getCardStatus()));
+        AccountDTO accountDTO = accountClient.getAccountById(id);
+
+        card.setAccountId(accountDTO.getId());
+        card.setCardStatus(CardStatus.valueOf(accountDTO.getAccountStatus()));
         cardService.updateById(card);
 
         return Result.of(200, "Card assigned successfully!");

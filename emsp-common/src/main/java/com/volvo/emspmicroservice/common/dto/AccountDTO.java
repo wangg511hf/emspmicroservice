@@ -1,9 +1,8 @@
-package com.volvo.emspmicroservice.accountservice.dto;
+package com.volvo.emspmicroservice.common.dto;
 
-import com.volvo.emspmicroservice.accountservice.domain.Account;
-import jakarta.validation.constraints.*;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.*;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -33,7 +32,7 @@ public class AccountDTO {
 
     private Date lastUpdated;
 
-    public AccountDTO(Account account) {
+    /*public AccountDTO(Account account) {
         this.id = account.getId();
         this.email = account.getEmail();
         this.name = account.getName();
@@ -43,7 +42,7 @@ public class AccountDTO {
         this.accountStatus = account.getAccountStatus().name();
         this.createTime = account.getCreateTime();
         this.lastUpdated = account.getLastUpdated();
-    }
+    }*/
 
     public int getId() {
         return id;
