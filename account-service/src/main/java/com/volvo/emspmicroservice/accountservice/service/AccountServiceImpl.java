@@ -4,18 +4,19 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.volvo.emspmicroservice.accountservice.enumType.AccountStatus;
 import com.volvo.emspmicroservice.common.dto.AccountDTO;
 import com.volvo.emspmicroservice.common.dto.PageDTO;
 import com.volvo.emspmicroservice.accountservice.domain.Account;
 import com.volvo.emspmicroservice.accountservice.mapper.AccountMapper;
 import com.volvo.emspmicroservice.common.query.PageQuery;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> implements AccountService {
 
     @Override

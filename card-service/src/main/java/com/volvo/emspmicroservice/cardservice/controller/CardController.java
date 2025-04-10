@@ -1,5 +1,6 @@
 package com.volvo.emspmicroservice.cardservice.controller;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.volvo.emspmicroservice.cardservice.dto.CardDTO;
 import com.volvo.emspmicroservice.common.client.AccountClient;
 import com.volvo.emspmicroservice.common.dto.AccountDTO;

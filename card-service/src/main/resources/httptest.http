@@ -3,11 +3,11 @@ POST http://localhost:8080/account/create
 Content-Type: application/json
 
 {
-  "email": "mj123456@nba.com",
-  "name": "Michile Jordan",
-  "username": "MichileJordan123",
-  "password": "Mj123456",
-  "accountStatus": "CREATED"
+  "email": "timduncan@nba.com",
+  "name": "Tim Duncan",
+  "username": "Td21356",
+  "password": "Tim12345678",
+  "accountStatus": "ACTIVATED"
 }
 
 ### Change account status PATCH request to lcoalhost server
@@ -33,7 +33,7 @@ Content-Type: application/json
 }
 
 ### Change account status PATCH request to lcoalhost server
-PATCH http://localhost:8080/account/changeAccountStatus/9
+PATCH http://localhost:8081/account/changeAccountStatus/9
 Content-Type: application/json
 
 {
