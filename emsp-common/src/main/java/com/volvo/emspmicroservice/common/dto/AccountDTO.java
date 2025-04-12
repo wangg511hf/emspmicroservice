@@ -8,7 +8,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class AccountDTO {
 
-    private int id;
+    private Integer id;
     @NotBlank(message = "Email address can't be blank!")
     @Email(message = "Email address format is not correct!")
     private String email;
@@ -44,11 +44,11 @@ public class AccountDTO {
         this.lastUpdated = account.getLastUpdated();
     }*/
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

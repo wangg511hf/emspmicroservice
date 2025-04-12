@@ -15,14 +15,14 @@ import java.util.Date;
 @AllArgsConstructor
 public class Card {
     @TableId(value = "id", type = IdType.AUTO)
-    private int id;
+    private Integer id;
 
     @TableField(value = "card_num")
     private String cardNum;
 
     // Foreign key
     @TableField(value = "account_id")
-    private int accountId;
+    private Integer accountId;
 
     // Auto generated EMAID format field
     @TableField(value = "contract_id")
@@ -53,11 +53,11 @@ public class Card {
         this.cardStatus = CardStatus.valueOf(carDTO.getCardStatus());
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -69,11 +69,11 @@ public class Card {
         this.cardNum = cardNum;
     }
 
-    public int getAccountId() {
+    public Integer getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(int accountId) {
+    public void setAccountId(Integer accountId) {
         this.accountId = accountId;
     }
 

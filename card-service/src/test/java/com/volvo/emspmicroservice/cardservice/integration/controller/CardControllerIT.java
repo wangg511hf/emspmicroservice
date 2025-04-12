@@ -35,7 +35,7 @@ class CardControllerIT {
         cardDTO.setCardNum("1233054617560236");
         cardDTO.setCardStatus("ASSIGNED");
 
-        Result res = cardController.assign(cardDTO.getId());
+        Result res = cardController.assign(1, cardDTO);
         assertEquals(Result.of(200, "Card assigned successfully!"), res);
     }
 

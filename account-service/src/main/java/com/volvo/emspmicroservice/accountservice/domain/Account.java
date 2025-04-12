@@ -16,7 +16,7 @@ import java.util.Date;
 public class Account {
     // Auto generated id, primary key
     @TableId(value = "id", type = IdType.AUTO)
-    private int id;
+    private Integer id;
 
     // Unique key
     @TableField(value = "email")
@@ -56,11 +56,11 @@ public class Account {
         this.accountStatus = AccountStatus.valueOf(accountDTO.getAccountStatus());
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

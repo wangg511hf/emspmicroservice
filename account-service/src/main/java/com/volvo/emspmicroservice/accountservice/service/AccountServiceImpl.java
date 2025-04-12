@@ -59,7 +59,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         return res;
     }
 
-    @Override
+    /*@Override
     public AccountDTO getAccountById(int id) {
         Account record = this.getById(id);
 
@@ -74,5 +74,5 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         res.setLastUpdated(record.getLastUpdated());
 
         return res;
-    }
+    }*/
 }

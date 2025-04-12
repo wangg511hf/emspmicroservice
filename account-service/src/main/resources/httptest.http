@@ -1,21 +1,21 @@
 ### Create account Post request to lcoalhost server
-POST http://localhost:8080/account/create
+POST http://localhost:8081/account/create
 Content-Type: application/json
 
 {
-  "email": "mj123456@nba.com",
-  "name": "Michile Jordan",
-  "username": "MichileJordan123",
-  "password": "Mj123456",
+  "email": "TatumJ@nba.com",
+  "name": "Jasen Tatum",
+  "username": "Jtatum33333",
+  "password": "Jt123456789",
   "accountStatus": "CREATED"
 }
 
 ### Change account status PATCH request to lcoalhost server
-PATCH http://localhost:8080/account/changeAccountStatus/5
+PATCH http://localhost:8081/account/changeAccountStatus/15
 Content-Type: application/json
 
 {
-    "id": 5,
+    "id": 15,
     "email": "123456@163.com",
     "name": "Hommie",
     "username": "hjasfj",
@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ### Query account by lastUpdated field DESC with pagination GET request to lcoalhost server
-GET http://localhost:8080/account/queryAccountPage
+GET http://localhost:8081/account/queryAccountPage
 Content-Type: application/json
 
 {
@@ -33,7 +33,7 @@ Content-Type: application/json
 }
 
 ### Change account status PATCH request to lcoalhost server
-PATCH http://localhost:8080/account/changeAccountStatus/9
+PATCH http://localhost:8081/account/changeAccountStatus/9
 Content-Type: application/json
 
 {
@@ -46,17 +46,16 @@ Content-Type: application/json
 }
 
 ### Create card POST request to lcoalhost server
-POST http://localhost:8080/card/create
+POST http://localhost:8082/card/create
 Content-Type: application/json
 
 {
-  "id": 2,
   "cardNum": "1234567890111213",
-  "cardStatus": "ASSIGNED"
+  "cardStatus": "CREATED"
 }
 
 ### Update card PATCH request to lcoalhost server
-PATCH http://localhost:8080/card/assign/5
+PATCH http://localhost:8082/card/assign/12
 Content-Type: application/json
 
 {
@@ -67,17 +66,17 @@ Content-Type: application/json
 }
 
 ### Change card status PATCH request to lcoalhost server
-PATCH http://localhost:8080/card/changeCardStatus/4
+PATCH http://localhost:8082/card/changeCardStatus/6
 Content-Type: application/json
 
 {
-  "id": 4,
+  "id": 6 ,
   "cardNum": "1234567890111213",
   "cardStatus": "ACTIVATED"
 }
 
 ### Query card by lastUpdated field DESC with pagination GET request to lcoalhost server
-GET http://localhost:8080/card/queryCardPage
+GET http://localhost:8082/card/queryCardPage
 Content-Type: application/json
 
 {

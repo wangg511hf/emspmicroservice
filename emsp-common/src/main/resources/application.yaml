@@ -1,6 +1,8 @@
 logging:
   level:
     com.volvo.emspassignment.mapper: debug
+    org.springframework.cloud.openfeign: DEBUG
+    org.springframework.cloud.loadbalancer: DEBUG
 
 mybatis-plus:
   configuration:

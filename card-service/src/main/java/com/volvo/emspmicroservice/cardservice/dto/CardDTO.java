@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CardDTO {
 
-    private int id;
+    private Integer id;
 
     @NotBlank(message = "Card number can't be blank!")
     private String cardNum;
 
-    private int accountId;
+    private Integer accountId;
 
     private String contractId;
 
@@ -30,11 +30,11 @@ public class CardDTO {
         this.cardStatus = card.getCardStatus().name();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -46,11 +46,11 @@ public class CardDTO {
         this.cardNum = cardNum;
     }
 
-    public int getAccountId() {
+    public Integer getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(int accountId) {
+    public void setAccountId(Integer accountId) {
         this.accountId = accountId;
     }
 

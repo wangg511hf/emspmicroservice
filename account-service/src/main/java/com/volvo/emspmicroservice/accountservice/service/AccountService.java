@@ -12,5 +12,5 @@ public interface AccountService extends IService<Account> {
 
     PageDTO<AccountDTO> queryAccountPage(PageQuery query);
 
-    AccountDTO getAccountById(int id);
+    //AccountDTO getAccountById(int id);
 }

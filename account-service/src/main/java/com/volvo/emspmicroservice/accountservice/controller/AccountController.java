@@ -39,7 +39,7 @@ public class AccountController {
      * Change status of Account API
      */
     @PatchMapping("/changeAccountStatus/{id}")
-    public Result changeAccountStatus(@PathVariable int id, @RequestBody @Valid AccountDTO accountDTO) {
+    public Result changeAccountStatus(@PathVariable("id") Integer id, @RequestBody @Valid AccountDTO accountDTO) {
         Account account = accountService.getById(id);
         if(account == null) {
             throw new RuntimeException("Account not found with id: " + id);
@@ -57,5 +57,28 @@ public class AccountController {
     @GetMapping("/queryAccountPage")
     public PageDTO<AccountDTO> queryAccountPage(@RequestBody PageQuery query) {
         return accountService.queryAccountPage(query);
+    }
+
+    /**
+     * Get Account data by id
+     */
+    @GetMapping("/getAccount/{id}")
+    public AccountDTO getAccountById(@PathVariable("id") Integer id) {
+        Account account = accountService.getById(id);
+        if(account == null) {
+            throw new RuntimeException("Account not found with id: " + id);
+        }
+
+        AccountDTO accountDTO = new AccountDTO();
+        accountDTO.setId(account.getId());
+        accountDTO.setName(account.getName());
+        accountDTO.setEmail(account.getEmail());
+        accountDTO.setUsername(account.getUsername());
+        accountDTO.setPassword(account.getPassword());
+        accountDTO.setAccountStatus(account.getAccountStatus().name());
+        accountDTO.setCreateTime(account.getCreateTime());
+        accountDTO.setLastUpdated(account.getLastUpdated());
+
+        return accountDTO;
     }
 }
