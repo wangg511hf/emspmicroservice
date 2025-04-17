@@ -1,9 +1,11 @@
 package com.volvo.emspmicroservice.accountservice.unit.controller;
 
-import com.volvo.emspmicroservice.common.dto.AccountDTO;
-import com.volvo.emspmicroservice.accountservice.controller.AccountController;
-import com.volvo.emspmicroservice.accountservice.domain.Account;
-import com.volvo.emspmicroservice.common.domain.Result;
+import com.volvo.emspmicroservice.accountservice.api.request.CreateAccountRequest;
+import com.volvo.emspmicroservice.accountservice.api.response.ApiResponse;
+import com.volvo.emspmicroservice.accountservice.domain.entity.Account;
+import com.volvo.emspmicroservice.accountservice.infrastructure.DO.AccountDO;
+import com.volvo.emspmicroservice.accountservice.infrastructure.repository.AccountRepository;
+import com.volvo.emspmicroservice.accountservice.api.controller.AccountController;
 import com.volvo.emspmicroservice.accountservice.service.AccountService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,44 +26,47 @@ public class AccountControllerTest {
     @Mock
     private AccountService accountService;
 
+    @Mock
+    private AccountRepository accountRepository;
+
     @Test
     public void createAccount_SuccessWhenInputValid() {
-        AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setId(1);
-        accountDTO.setEmail("test@test.com");
-        accountDTO.setName("testAccount");
-        accountDTO.setUsername("testUsername");
-        accountDTO.setPassword("testPassword");
-        accountDTO.setAccountStatus("CREATED");
+        CreateAccountRequest car = new CreateAccountRequest();
+        car.setId(1);
+        car.setEmail("test@test.com");
+        car.setName("testAccount");
+        car.setUsername("testUsername");
+        car.setPassword("testPassword");
+        car.setAccountStatus("CREATED");
 
-        when(accountService.isAccountExists(accountDTO.getEmail())).thenReturn(false);
-        when(accountService.save(any(Account.class))).thenReturn(true);
+        when(accountRepository.isAccountExists(car.getEmail())).thenReturn(false);
+        when(accountRepository.save(any(AccountDO.class))).thenReturn(true);
 
-        Result testRes = accountController.createAccount(accountDTO);
-        assertEquals(Result.of(200, "Account created successfully!"), testRes);
+        ApiResponse<Account> testRes = accountController.createAccount(car);
+        assertEquals(200, testRes.getCode());
 
-        verify(accountService).isAccountExists(accountDTO.getEmail());
-        verify(accountService).save(any(Account.class));
+        verify(accountRepository).isAccountExists(car.getEmail());
+        verify(accountRepository).save(any(AccountDO.class));
     }
 
     @Test
     public void createAccount_FailWhenEmailExists() {
-        AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setId(1);
-        accountDTO.setName("testAccount");
-        accountDTO.setEmail("test@test.com");
-        accountDTO.setUsername("testUsername");
-        accountDTO.setPassword("testPassword");
-        accountDTO.setAccountStatus("CREATED");
+        CreateAccountRequest car = new CreateAccountRequest();
+        car.setId(1);
+        car.setName("testAccount");
+        car.setEmail("test@test.com");
+        car.setUsername("testUsername");
+        car.setPassword("testPassword");
+        car.setAccountStatus("CREATED");
 
-        when(accountService.isAccountExists(accountDTO.getEmail())).thenReturn(true);
+        when(accountRepository.isAccountExists(car.getEmail())).thenReturn(true);
 
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
-                () -> accountController.createAccount(accountDTO)
+                () -> accountController.createAccount(car)
         );
 
         assertEquals("Email already exists!", exception.getMessage());
-        verify(accountService, never()).save(any());
+        verify(accountRepository, never()).save(any());
     }
 }

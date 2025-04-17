@@ -1,19 +1,17 @@
-package com.volvo.emspmicroservice.accountservice.domain;
+package com.volvo.emspmicroservice.accountservice.infrastructure.DO;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.volvo.emspmicroservice.common.dto.AccountDTO;
-import com.volvo.emspmicroservice.accountservice.enumType.AccountStatus;
+import com.volvo.emspmicroservice.accountservice.domain.enumType.AccountStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Data
 @TableName("emsp_account")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Account {
+public class AccountDO {
     // Auto generated id, primary key
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
@@ -42,19 +40,6 @@ public class Account {
     // Update last_updated when update account
     @TableField(value = "last_updated", fill = FieldFill.INSERT_UPDATE)
     private Date lastUpdated;
-
-    // One(Account) to Many(Card) relation, not database field
-//    @TableField(exist = false)
-//    private List<Card> cards;
-
-    public Account(AccountDTO accountDTO) {
-        this.email = accountDTO.getEmail();
-        this.name = accountDTO.getName();
-        this.username = accountDTO.getUsername();
-        this.password = accountDTO.getPassword();
-        //this.accountStatus = new AccountStatusConverter().convert(accountDTO.getAccoutStatus());
-        this.accountStatus = AccountStatus.valueOf(accountDTO.getAccountStatus());
-    }
 
     public Integer getId() {
         return id;

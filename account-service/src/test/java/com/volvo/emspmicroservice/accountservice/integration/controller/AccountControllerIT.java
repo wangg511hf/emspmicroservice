@@ -1,7 +1,11 @@
 package com.volvo.emspmicroservice.accountservice.integration.controller;
 
+import com.volvo.emspmicroservice.accountservice.api.request.ChangeAccountStatusRequest;
+import com.volvo.emspmicroservice.accountservice.api.request.CreateAccountRequest;
+import com.volvo.emspmicroservice.accountservice.api.response.ApiResponse;
+import com.volvo.emspmicroservice.accountservice.domain.entity.Account;
 import com.volvo.emspmicroservice.common.dto.AccountDTO;
-import com.volvo.emspmicroservice.accountservice.controller.AccountController;
+import com.volvo.emspmicroservice.accountservice.api.controller.AccountController;
 import com.volvo.emspmicroservice.common.domain.Result;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +23,14 @@ class AccountControllerIT {
      */
     @Test
     public void testCreateAccount() {
-        AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setEmail("Emma123@gmail.com");
-        accountDTO.setName("Emma");
-        accountDTO.setUsername("emma666666");
-        accountDTO.setPassword("Emma123456!");
-        accountDTO.setAccountStatus("CREATED");
+        CreateAccountRequest car = new CreateAccountRequest();
+        car.setEmail("Emma123@gmail.com");
+        car.setName("Emma");
+        car.setUsername("emma666666");
+        car.setPassword("Emma123456!");
+        car.setAccountStatus("CREATED");
 
-        accountController.createAccount(accountDTO);
+        accountController.createAccount(car);
     }
 
     /**
@@ -34,15 +38,11 @@ class AccountControllerIT {
      */
     @Test
     public void testChangeAccountStatus() {
-        AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setId(2);
-        accountDTO.setEmail("Ll1111@126.com");
-        accountDTO.setName("Lily");
-        accountDTO.setUsername("Lily12345");
-        accountDTO.setPassword("Ll12345678");
-        accountDTO.setAccountStatus("DEACTIVATED");
+        String email = "Emma123@gmail.com";
+        ChangeAccountStatusRequest casr = new ChangeAccountStatusRequest();
+        casr.setAccountStatus("DEACTIVATED");
 
-        Result res = accountController.changeAccountStatus(accountDTO.getId(), accountDTO);
-        assertEquals(Result.of(200, "Account status changed successfully!"), res);
+        ApiResponse<Account> response = accountController.changeAccountStatus(email, casr);
+        assertEquals(200, response.getCode());
     }
 }

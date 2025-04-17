@@ -1,30 +1,25 @@
 ### Create account Post request to lcoalhost server
-POST http://localhost:8081/account/create
+POST http://localhost:8081/account
 Content-Type: application/json
 
 {
-  "email": "TatumJ@nba.com",
-  "name": "Jasen Tatum",
-  "username": "Jtatum33333",
-  "password": "Jt123456789",
+  "email": "cpaul@nba.com",
+  "name": "Chris Paul",
+  "username": "Cpaul",
+  "password": "Cp3333333",
   "accountStatus": "CREATED"
 }
 
 ### Change account status PATCH request to lcoalhost server
-PATCH http://localhost:8081/account/changeAccountStatus/15
+PATCH http://localhost:8081/account/cpaul@nba.com/status
 Content-Type: application/json
 
 {
-    "id": 15,
-    "email": "123456@163.com",
-    "name": "Hommie",
-    "username": "hjasfj",
-    "password": "Wasd123456",
     "accountStatus": "ACTIVATED"
 }
 
 ### Query account by lastUpdated field DESC with pagination GET request to lcoalhost server
-GET http://localhost:8081/account/queryAccountPage
+GET http://localhost:8081/account/search
 Content-Type: application/json
 
 {

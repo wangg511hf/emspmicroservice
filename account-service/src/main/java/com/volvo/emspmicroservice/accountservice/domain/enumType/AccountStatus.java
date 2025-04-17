@@ -1,4 +1,4 @@
-package com.volvo.emspmicroservice.accountservice.enumType;
+package com.volvo.emspmicroservice.accountservice.domain.enumType;
 
 //@Getter
 public enum AccountStatus {

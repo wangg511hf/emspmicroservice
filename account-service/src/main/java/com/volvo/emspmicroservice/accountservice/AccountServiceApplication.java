@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@MapperScan("com.volvo.emspmicroservice.accountservice.mapper")
+@MapperScan("com.volvo.emspmicroservice.accountservice.infrastructure.mapper")
 @ComponentScan("com.volvo.emspmicroservice")
 public class AccountServiceApplication {
 
