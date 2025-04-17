@@ -21,3 +21,17 @@ custom:
   id-config:
     country-codes: CN,US,UK,JP,KR,DE,RU,CA
     vendor-codes: AB,CD,EF,GH,IJ,KL,MN
+
+amqp:
+  rabbitmq:
+    host: rabbitmq-server
+    port: 5672
+    username: guest
+    password: guest
+    vhost: emspvhost
+    routing:
+      key: emsp.message.key
+    exchange:
+      name: emsp.exchange.fanout
+    queue:
+      name: emsp.consumer.queue

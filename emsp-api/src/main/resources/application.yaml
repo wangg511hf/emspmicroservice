@@ -1,0 +1,17 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: emsp-api
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+  rabbitmq:
+    host: localhost
+    prot: 5672
+    username: guest
+    password: guest
+
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration

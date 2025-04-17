@@ -7,6 +7,15 @@ spring:
   cloud:
     nacos:
       server-addr: localhost:8848
+  rabbitmq:
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 1000
+          multiplier: 2.0
+          max-interval: 10000
 
 logging:
   level:
@@ -21,3 +30,17 @@ custom:
   id-config:
     country-codes: CN,US,UK,JP,KR,DE,RU,CA
     vendor-codes: AB,CD,EF,GH,IJ,KL,MN
+
+amqp:
+  rabbitmq:
+    host: rabbitmq-server
+    port: 5672
+    username: guest
+    password: guest
+    vhost: emspvhost
+    routing:
+      key: emsp.message.key
+    exchange:
+      name: emsp.exchange.fanout
+    queue:
+      name: emsp.consumer.queue
