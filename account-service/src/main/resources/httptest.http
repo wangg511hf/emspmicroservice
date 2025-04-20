@@ -3,10 +3,10 @@ POST http://localhost:8081/account
 Content-Type: application/json
 
 {
-  "email": "cpaul@nba.com",
-  "name": "Chris Paul",
-  "username": "Cpaul",
-  "password": "Cp3333333",
+  "email": "splash@nba.com",
+  "name": "Steve Curry",
+  "username": "SC40000",
+  "password": "Scurry88888",
   "accountStatus": "CREATED"
 }
 
@@ -41,37 +41,34 @@ Content-Type: application/json
 }
 
 ### Create card POST request to lcoalhost server
-POST http://localhost:8082/card/create
+POST http://localhost:8082/card
 Content-Type: application/json
 
 {
-  "cardNum": "1234567890111213",
-  "cardStatus": "CREATED"
+  "cardNum": "1111222233334444",
+  "cardStatus": "WEQ"
 }
 
 ### Update card PATCH request to lcoalhost server
-PATCH http://localhost:8082/card/assign/12
+PATCH http://localhost:8082/card/allocation
 Content-Type: application/json
 
 {
-  "id": 5,
-  "cardNum": "1234567890111213",
-  "accountId": 1,
-  "cardStatus": "ASSIGNED"
+  "id": 12,
+  "accountId": 16
 }
 
 ### Change card status PATCH request to lcoalhost server
-PATCH http://localhost:8082/card/changeCardStatus/6
+PATCH http://localhost:8082/card/status
 Content-Type: application/json
 
 {
-  "id": 6 ,
-  "cardNum": "1234567890111213",
-  "cardStatus": "ACTIVATED"
+  "id": 6,
+  "cardStatus": "DEACTIVATED"
 }
 
 ### Query card by lastUpdated field DESC with pagination GET request to lcoalhost server
-GET http://localhost:8082/card/queryCardPage
+GET http://localhost:8082/card/search
 Content-Type: application/json
 
 {

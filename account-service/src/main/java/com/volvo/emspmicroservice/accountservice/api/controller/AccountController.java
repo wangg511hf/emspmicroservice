@@ -56,9 +56,9 @@ public class AccountController {
      * Get Account data by id
      */
     @GetMapping("/{id}")
-    public Account getAccountById(@PathVariable("id") Integer id) {
-        Account account = accountService.getAccountById(id);
+    public AccountDTO getAccountById(@PathVariable("id") Integer id) {
+        AccountDTO accountDTO = accountService.getAccountById(id);
 
-        return account;
+        return accountDTO;
     }
 }

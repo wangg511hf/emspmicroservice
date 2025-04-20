@@ -1,15 +1,20 @@
 package com.volvo.emspmicroservice.cardservice.unit.controller;
 
+import com.volvo.emspmicroservice.cardservice.api.request.AssignCardRequest;
+import com.volvo.emspmicroservice.cardservice.api.request.CreatCardRequest;
+import com.volvo.emspmicroservice.cardservice.api.response.ApiResponse;
+import com.volvo.emspmicroservice.cardservice.domain.entity.Account;
+import com.volvo.emspmicroservice.cardservice.domain.entity.Card;
+import com.volvo.emspmicroservice.cardservice.domain.enumType.AccountStatus;
+import com.volvo.emspmicroservice.cardservice.domain.enumType.CardStatus;
+import com.volvo.emspmicroservice.cardservice.infrastructure.converter.CardConverter;
+import com.volvo.emspmicroservice.cardservice.service.client.AccountClient;
 import com.volvo.emspmicroservice.common.dto.AccountDTO;
-import com.volvo.emspmicroservice.cardservice.dto.CardDTO;
-import com.volvo.emspmicroservice.common.client.AccountClient;
 import com.volvo.emspmicroservice.common.dto.PageDTO;
-import com.volvo.emspmicroservice.common.util.CommonUtil;
-import com.volvo.emspmicroservice.cardservice.controller.CardController;
-import com.volvo.emspmicroservice.cardservice.domain.Card;
-import com.volvo.emspmicroservice.common.domain.Result;
+import com.volvo.emspmicroservice.cardservice.api.controller.CardController;
+import com.volvo.emspmicroservice.cardservice.infrastructure.DO.CardDO;
 import com.volvo.emspmicroservice.common.query.PageQuery;
-import com.volvo.emspmicroservice.cardservice.service.CardService;
+import com.volvo.emspmicroservice.cardservice.infrastructure.repository.CardRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,91 +33,82 @@ public class CardControllerTest {
     private CardController cardController;
 
     @Mock
-    private CardService cardService;
-
-    @Mock
-    private CommonUtil commonUtil;
+    private CardRepository cardRepository;
 
     @Mock
     private AccountClient accountClient;
 
+    @Mock
+    private CardConverter cardConverter;
+
     @Test
     public void createCard_SuccessWhenInputValid() {
-        CardDTO cardDTO = new CardDTO();
-        cardDTO.setId(1);
-        cardDTO.setCardNum("1234567891011121");
-        cardDTO.setAccountId(1);
-        cardDTO.setContractId(commonUtil.generateRandomEMAID());
-        cardDTO.setCardStatus("CREATED");
+        CreatCardRequest ccr = new CreatCardRequest();
+        ccr.setId(1);
+        ccr.setCardNum("1234567891011121");
+        ccr.setCardStatus("CREATED");
 
-        when(cardService.save(any(Card.class))).thenReturn(true);
+        when(cardRepository.save(any(CardDO.class))).thenReturn(true);
 
-        Result testRes = cardController.createCard(cardDTO);
+        ApiResponse<Card> testRes = cardController.createCard(ccr);
 
-        assertEquals(Result.of(200, "Card created successfully!"), testRes);
+        assertEquals(200, testRes.getCode());
 
-        verify(cardService).save(any(Card.class));
+        verify(cardRepository).save(any(CardDO.class));
     }
 
     @Test
     public void createCard_SuccessWhenCardNumNotValid() {
-        CardDTO cardDTO = new CardDTO();
-        cardDTO.setId(1);
-        cardDTO.setCardNum("123456789101112131415"); // Card num not 16
-        cardDTO.setAccountId(1);
-        cardDTO.setContractId(commonUtil.generateRandomEMAID());
-        cardDTO.setCardStatus("CREATED");
+        CreatCardRequest ccr = new CreatCardRequest();
+        ccr.setId(1);
+        ccr.setCardNum("123456789101112131415"); // Card num not 16
+        ccr.setAccountId(1);
+        ccr.setCardStatus("CREATED");
 
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
-                () -> cardController.createCard(cardDTO)
+                () -> cardController.createCard(ccr)
         );
 
         assertEquals("Card number must be 16 characters!", exception.getMessage());
-        verify(cardService, never()).save(any());
+        verify(cardRepository, never()).save(any());
     }
 
     @Test
     public void assign_SuccessWhenCardIsValid() {
-        int id = 1;
-        CardDTO cardDTO = new CardDTO();
-        cardDTO.setId(id);
-        cardDTO.setCardNum("1234567891011121");
-        cardDTO.setContractId(commonUtil.generateRandomEMAID());
-        cardDTO.setCardStatus("CREATED");
+        AssignCardRequest acr = new AssignCardRequest();
+        acr.setId(1);
+        acr.setAccountId(1);
 
-        AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setId(id);
-        accountDTO.setAccountStatus("CREATED");
+        CardDO cardDO = new CardDO(1, "1234567890111213", null,
+                "CN-CD-1234567890", CardStatus.CREATED, null, null);
+        when(cardRepository.getById(1)).thenReturn(cardDO);
 
-        when(cardService.getById(id)).thenReturn(new Card(cardDTO));
-        when(accountClient.getAccountById(id)).thenReturn(accountDTO);
+        AccountDTO accountDTO = new AccountDTO(1, "adjaad@163.com", "Test",
+                "User123", "User123456789", "ACTIVATED", null, null);
+        when(accountClient.getAccountById(1)).thenReturn(accountDTO);
 
-        Result testRes = cardController.assign(id, cardDTO);
+        ApiResponse<Card> testRes = cardController.assign(acr);
 
-        assertEquals(Result.of(200, "Card assigned successfully!"), testRes);
-        verify(cardService).updateById(any(Card.class));
+        assertEquals(200, testRes.getCode());
+        verify(cardRepository).updateById(any(CardDO.class));
     }
 
     @Test
     public void assign_FailedWhenCardNotExists() {
-        int id = 1;
-        CardDTO cardDTO = new CardDTO();
-        cardDTO.setId(id);
-        cardDTO.setCardNum("1234567891011121");
-        cardDTO.setAccountId(1);
-        cardDTO.setContractId(commonUtil.generateRandomEMAID());
-        cardDTO.setCardStatus("CREATED");
+        AssignCardRequest acr = new AssignCardRequest();
+        acr.setId(1);
+        acr.setAccountId(1);
 
-        when(cardService.getById(id)).thenReturn(null);
+        when(cardRepository.getById(1)).thenReturn(null);
 
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
-                () -> cardController.assign(id, cardDTO)
+                () -> cardController.assign(acr)
         );
 
-        assertEquals("Card not found with id: " + id, exception.getMessage());
-        verify(cardService, never()).updateById(any());
+        assertEquals("Card not found with id: " + 1, exception.getMessage());
+        verify(cardRepository, never()).updateById(any());
     }
 
     @Test
@@ -121,14 +117,14 @@ public class CardControllerTest {
         query.setPageNum(1);
         query.setPageSize(10);
 
-        PageDTO<CardDTO> mockPageData = new PageDTO<>();
+        PageDTO<Card> mockPageData = new PageDTO<>();
         mockPageData.setTotalPage(0L);
         mockPageData.setTotalNum(0L);
         mockPageData.setList(Collections.emptyList());
 
-        when(cardService.queryCardPage(query)).thenReturn(mockPageData);
+        when(cardRepository.queryCardPage(query)).thenReturn(mockPageData);
 
-        PageDTO<CardDTO> testRes = cardController.queryCardPage(query);
+        PageDTO<Card> testRes = cardController.queryCardPage(query);
 
         assertEquals(0L, testRes.getTotalNum());
         assertEquals(0L, testRes.getTotalPage());

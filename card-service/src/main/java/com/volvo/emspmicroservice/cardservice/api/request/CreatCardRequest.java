@@ -1,12 +1,9 @@
-package com.volvo.emspmicroservice.cardservice.dto;
+package com.volvo.emspmicroservice.cardservice.api.request;
 
-import com.volvo.emspmicroservice.cardservice.domain.Card;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.*;
+import java.util.Date;
 
-@NoArgsConstructor
-public class CardDTO {
+public class CreatCardRequest {
 
     private Integer id;
 
@@ -18,17 +15,12 @@ public class CardDTO {
     private String contractId;
 
     @Pattern(regexp = "CREATED|ASSIGNED|ACTIVATED|DEACTIVATED",
-            message = "Account status must be CREATED, ASSIGNED, ACTIVATED or DEACTIVATED")
+            message = "Card status must be CREATED, ASSIGNED, ACTIVATED or DEACTIVATED")
     private String cardStatus;
 
-    public CardDTO(Card card) {
-        this.id = card.getId();
-        this.cardNum = card.getCardNum();
-        this.accountId = card.getAccountId();
-        this.contractId = card.getContractId();
-        //this.cardStatus = card.getCardStatus().toString();
-        this.cardStatus = card.getCardStatus().name();
-    }
+    private Date createTime;
+
+    private Date lastUpdated;
 
     public Integer getId() {
         return id;
@@ -68,5 +60,21 @@ public class CardDTO {
 
     public void setCardStatus(String cardStatus) {
         this.cardStatus = cardStatus;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }

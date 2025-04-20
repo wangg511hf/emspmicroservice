@@ -1,4 +1,4 @@
-package com.volvo.emspmicroservice.cardservice.enumType;
+package com.volvo.emspmicroservice.cardservice.domain.enumType;
 
 //@Getter
 public enum CardStatus {

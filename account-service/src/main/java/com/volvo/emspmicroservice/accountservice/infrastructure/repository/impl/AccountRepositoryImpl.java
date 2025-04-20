@@ -31,9 +31,13 @@ public class AccountRepositoryImpl extends ServiceImpl<AccountMapper, AccountDO>
 
     public Account createAccount(Account account) {
         AccountDO accountDO = accountConverter.fromDomain(account);
-        this.save(accountDO);
+        boolean isSuccess = this.save(accountDO);
+        if(isSuccess) {
+            Account savedAccount = this.getByEmail(accountDO.getEmail());
+            return savedAccount;
+        }
 
-        return account;
+        throw new RuntimeException("Card created failed at CardRepository layer!");
     }
 
     public Account getByEmail(String email) {
@@ -50,12 +54,6 @@ public class AccountRepositoryImpl extends ServiceImpl<AccountMapper, AccountDO>
     }
 
     public Account changeAccountStatus(Account account) {
-//        accountMapper.update(
-//                null,
-//                new UpdateWrapper<AccountDO>()
-//                        .set("account_status", account.getAccountStatus())
-//                        .eq("email", account.getEmail())
-//        );
         AccountDO before = accountConverter.fromDomain(account);
         accountMapper.updateById(before);
 
@@ -76,7 +74,7 @@ public class AccountRepositoryImpl extends ServiceImpl<AccountMapper, AccountDO>
         res.setTotalPage(queryRes.getPages());
 
         List<AccountDO> records = queryRes.getRecords();
-        List<Account> dos = CollUtil.newArrayList();
+        List<Account> list = CollUtil.newArrayList();
         for(AccountDO record : records) {
             Account acc = new Account(
                     record.getId(),
@@ -88,9 +86,9 @@ public class AccountRepositoryImpl extends ServiceImpl<AccountMapper, AccountDO>
                     record.getCreateTime(),
                     record.getLastUpdated()
             );
-            dos.add(acc);
+            list.add(acc);
         }
-        res.setList(dos);
+        res.setList(list);
 
         return res;
     }

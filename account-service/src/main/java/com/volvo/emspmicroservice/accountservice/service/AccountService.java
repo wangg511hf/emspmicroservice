@@ -4,8 +4,8 @@ import com.volvo.emspmicroservice.accountservice.api.request.ChangeAccountStatus
 import com.volvo.emspmicroservice.accountservice.api.request.CreateAccountRequest;
 import com.volvo.emspmicroservice.accountservice.domain.converter.AccountRequestConverter;
 import com.volvo.emspmicroservice.accountservice.domain.entity.Account;
-import com.volvo.emspmicroservice.accountservice.domain.enumType.AccountStatus;
 import com.volvo.emspmicroservice.accountservice.infrastructure.repository.AccountRepository;
+import com.volvo.emspmicroservice.common.dto.AccountDTO;
 import com.volvo.emspmicroservice.common.dto.PageDTO;
 import com.volvo.emspmicroservice.common.query.PageQuery;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class AccountService {
 
         Account account = accountRepository.getByEmail(email);
         if(changeAccountStatusRequest.getAccountStatus().equals("CREATED")) {
-            return account;
+            account.create();
         } else if(changeAccountStatusRequest.getAccountStatus().equals("ACTIVATED")) {
             account.activate();
         } else if(changeAccountStatusRequest.getAccountStatus().equals("DEACTIVATED")) {
@@ -58,12 +58,22 @@ public class AccountService {
         return res;
     }
 
-    public Account getAccountById(Integer id) {
+    public AccountDTO getAccountById(Integer id) {
         Account account = accountRepository.getAccountById(id);
+        AccountDTO accountDTO = new AccountDTO(
+                account.getId(),
+                account.getEmail(),
+                account.getName(),
+                account.getUsername(),
+                account.getPassword(),
+                account.getAccountStatus().name(),
+                account.getCreateTime(),
+                account.getLastUpdated()
+        );
         if(account == null) {
             throw new RuntimeException("Account does not exist!");
         }
 
-        return account;
+        return accountDTO;
     }
 }

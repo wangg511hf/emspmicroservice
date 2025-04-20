@@ -1,19 +1,17 @@
-package com.volvo.emspmicroservice.cardservice.domain;
+package com.volvo.emspmicroservice.cardservice.infrastructure.DO;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.volvo.emspmicroservice.cardservice.dto.CardDTO;
-import com.volvo.emspmicroservice.cardservice.enumType.CardStatus;
+import com.volvo.emspmicroservice.cardservice.domain.enumType.CardStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
 @Data
 @TableName("emsp_card")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Card {
+public class CardDO {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
@@ -39,19 +37,6 @@ public class Card {
     // Update last_updated when update account
     @TableField(value = "last_updated", fill = FieldFill.INSERT_UPDATE)
     private Date lastUpdated;
-
-    // Many(Card) to one(Account)
-//    @TableField(exist = false)
-//    private Account account;
-
-    public Card(CardDTO carDTO) {
-        this.id = carDTO.getId();
-        this.cardNum = carDTO.getCardNum();
-        this.accountId = carDTO.getAccountId();
-        this.contractId = carDTO.getContractId();
-        //this.cardStatus = new CardStatusConverter().convert(carDTO.getCardStatus());
-        this.cardStatus = CardStatus.valueOf(carDTO.getCardStatus());
-    }
 
     public Integer getId() {
         return id;
@@ -108,12 +93,4 @@ public class Card {
     public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
-
-//    public Account getAccount() {
-//        return account;
-//    }
-//
-//    public void setAccount(Account account) {
-//        this.account = account;
-//    }
 }

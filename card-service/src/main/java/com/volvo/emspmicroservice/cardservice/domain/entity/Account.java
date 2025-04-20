@@ -1,33 +1,32 @@
-package com.volvo.emspmicroservice.accountservice.api.request;
+package com.volvo.emspmicroservice.cardservice.domain.entity;
 
-import jakarta.validation.constraints.*;
+import com.volvo.emspmicroservice.cardservice.domain.enumType.AccountStatus;
+import lombok.AllArgsConstructor;
 import java.util.Date;
 
-public class CreateAccountRequest {
+@AllArgsConstructor
+public class Account {
 
     private Integer id;
-    @NotBlank(message = "Email address can't be blank!")
-    @Email(message = "Email address format is not correct!")
     private String email;
-
-    @NotBlank(message = "Name can't be blank!")
-    @Size(min = 3, max = 20, message = "The length of name must be between 3 and 20!")
     private String name;
-
-    @NotBlank(message = "Username can not be blank!")
     private String username;
-
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$",
-            message = "Password must cantain capital letter, small letter and number, and the length should be more than 8")
     private String password;
-
-    @Pattern(regexp = "CREATED|ACTIVATED|DEACTIVATED",
-            message = "Account status must be CREATED, ACTIVATED or DEACTIVATED")
-    private String accountStatus;
-
+    private AccountStatus accountStatus;
     private Date createTime;
-
     private Date lastUpdated;
+
+    public void create() {
+        this.accountStatus = AccountStatus.CREATED;
+    }
+
+    public void activate() {
+        this.accountStatus = AccountStatus.ACTIVATED;
+    }
+
+    public void deactivate() {
+        this.accountStatus = AccountStatus.DEACTIVATED;
+    }
 
     public Integer getId() {
         return id;
@@ -69,11 +68,11 @@ public class CreateAccountRequest {
         this.password = password;
     }
 
-    public String getAccountStatus() {
+    public AccountStatus getAccountStatus() {
         return accountStatus;
     }
 
-    public void setAccountStatus(String accountStatus) {
+    public void setAccountStatus(AccountStatus accountStatus) {
         this.accountStatus = accountStatus;
     }
 

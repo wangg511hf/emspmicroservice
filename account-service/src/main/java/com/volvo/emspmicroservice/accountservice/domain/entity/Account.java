@@ -2,7 +2,6 @@ package com.volvo.emspmicroservice.accountservice.domain.entity;
 
 import com.volvo.emspmicroservice.accountservice.domain.enumType.AccountStatus;
 import lombok.AllArgsConstructor;
-
 import java.util.Date;
 
 @AllArgsConstructor
@@ -16,6 +15,10 @@ public class Account {
     private AccountStatus accountStatus;
     private Date createTime;
     private Date lastUpdated;
+
+    public void create() {
+        this.accountStatus = AccountStatus.CREATED;
+    }
 
     public void activate() {
         this.accountStatus = AccountStatus.ACTIVATED;

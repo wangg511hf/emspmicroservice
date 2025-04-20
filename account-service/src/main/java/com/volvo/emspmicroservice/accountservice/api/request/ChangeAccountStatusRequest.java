@@ -1,6 +1,6 @@
 package com.volvo.emspmicroservice.accountservice.api.request;
 
-import javax.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 
 public class ChangeAccountStatusRequest {
 

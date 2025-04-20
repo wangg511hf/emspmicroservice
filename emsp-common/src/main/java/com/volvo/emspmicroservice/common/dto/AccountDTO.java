@@ -1,10 +1,12 @@
 package com.volvo.emspmicroservice.common.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 import java.util.Date;
 
+@AllArgsConstructor
 @NoArgsConstructor
 public class AccountDTO {
 
